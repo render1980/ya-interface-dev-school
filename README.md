@@ -1,4 +1,4 @@
 ya-interface-dev-school
 =======================
 
-Repository with sites which have been made as a task for Yandex Interface Development School
+Репозиторий с сайтами, которые были сверстаны в качестве задания для Школы Разработки Интерфейсов Yandex
