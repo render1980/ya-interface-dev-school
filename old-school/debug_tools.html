@@ -1,0 +1,163 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Инструменты и приемы отладки скриптов</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">	 
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.dropdownPlain.js"></script>
+	<script type="text/javascript">
+		if(navigator.userAgent.indexOf("MSIE 9.0") > 0){
+			document.write("<link rel='stylesheet' href='css/ie_style.css'>");
+		}
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">				
+			<div id="logo">
+				<a href="index.html"><h1>YA_DEV</h1></a>
+			</div>		
+		</div>
+
+		<div id="nav">
+			<ul id="top_menu">
+				<li><a href="index.html"><div class="menu_elem">Главная</div></a></li>
+				<li>
+					<a href=""><div class="menu_elem">Проекты<div class="arrow"></div></div>
+					</a>
+					<ul>
+						<li>
+							<a href="ya_school.html">Школа интерфейсов Яндекс</a>
+						</li>							
+					</ul>
+				</li>
+				<li>
+					<a href=""><div class="menu_elem">О сайте<div class="arrow"></div></div></a>
+						<ul>
+							<li><a href="common_info.html">Общая информация</a></li>
+							<li><a href="sitemap.html">Карта сайта</a></li>
+						</ul>
+				</li>
+				<li>
+					<div id="last">
+						<a href="author.html"><div class="menu_elem">Об авторе<div class="arrow"></div></div></a>
+					</div>
+					<ul>
+						<li><a href="resume.html">Резюме</a></li>
+						<li><a href="contacts.html">Контакты</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div id="main">
+			<div class="article">
+			
+				<h2>Инструменты и приемы отладки скриптов</h2>
+				<h3>Инструменты</h3>
+				<p>Ниже перечислены основные на текущий момент браузеры и инструменты для отладки в них.</p>
+
+				<p>
+				<table cellpading="5" cellspacing="0" border="1">
+					<tr>
+						<td></td>
+						<td>Браузеры</td>
+						<td>Инструменты</td>
+					</tr>
+					<tr>
+						<td><img src="img/debug/chrome_icon.png"></td>
+						<td>Chrome</td>
+						<td>WebInspector (встроен в WebKit)</td>
+					</tr>
+						<tr>
+						<td><img src="img/debug/safari_icon.png"></td>
+						<td>Safari</td>
+						<td>WebInspector (встроен в WebKit)</td>
+					</tr>
+					<tr>
+						<td><img src="img/debug/firefox_icon.png"></td>
+						<td>Firefox</td>
+						<td>Firebug</td>
+					</tr>
+					<tr>
+						<td><img src="img/debug/opera_icon.png"></td>
+						<td>Opera</td>
+						<td>DragonFly</td>
+					</tr>
+					<tr>
+						<td><img src="img/debug/ie_icon.png"></td>
+						<td>IE >= 8</td>
+						<td>DeveloperTools (встроен)</td>
+					</tr>
+					<tr>
+						<td><img src="img/debug/ie_icon.png"></td>
+						<td>IE < 8</td>
+						<td>
+						DebugBar</br>
+						Companion.JS</br>
+						Dev Tools</br>
+						</td>
+					</tr>
+				</table></p>
+
+				<p>Существуют также инструменты для отладки, входящие в состав различных IDE (Visual Studio и т.д.)</p>
+
+				<h3>Приемы отладки</h3>
+				Можно выделить два основных типа: прерывающие поток выполнения и, сответственно, не прерывающие поток.
+
+				<p>
+				Приемы, прерывающие поток выполнения:
+					<ul>
+						<li>Вызов alert()</li>
+						<li>Установка breakpoint или conditional breakpoint</li>
+						<li>Использование инструкции 'debugger' в скрипте</li>
+					</ul>
+				</p>
+					
+				<h4>Вызов alert()</h4>
+				<p>Не лучший вариант для целей отладки. Появляется модальное окно с заданным содержимым, при этом тормозя выполнение скрипта.</p>
+				<h4>Установка breakpoint или conditional breakpoint</h4>
+				
+				<p>Данный метод, как и любой, заключающийся в остановке потока, плох тем, что при его использовании данные асинхронных вызовов могут быть утеряны.</p>
+				<p>Для установки conditional breakpoint необходимо задать условие, при котором скрипт будет останавливаться на этой точке.</p>
+
+				<h4>Использование 'debugger'</h4>
+				Данная инструкция позволяет задать точку прерывания в скрипте.
+
+				<h4>Использование Console</h4>
+				<p>Ну и, наконец, приемы, позволяющие избежать прерывания потока, заключаются в использовании console.log. 
+				Появившись на свет вместе с Firebug, данный объект сейчас существует для всех основных браузеров. Схема использования аналогична предыдущим методам: нужно лишь в требуемом месте вызвать console.log('...') с параметром, после чего сообщение появиться в отладочной консоли браузера. Кроме того, console предоставляет расширенные средства для отображения сообщений (форматирование, группировка, профилирование). Подробно об этом можно посмотреть <a href="http://habrahabr.ru/post/114483/">здесь</a>.</p>
+
+				<h3>Сценарии отладки</h3>
+				<p>Собственно, отладка может идти по двум сценариям:
+					<ol>
+						<li>Браузер показал ошибку в консоли => перейти по ссылке.</li>
+						<li>Браузер ошибку не показал => локализовать область возникновения ошибки => отлаживать вышеописанными способами.</li>
+					</ol>
+				</p>
+				<h3>Использование инструментов отладки в браузерах</h3>
+				<p><a href="debug_chrome.html">Google Chrome</a></p>
+				<p><a href="debug_mozilla.html">Mozilla Firefox</a></p>
+				<p><a href="debug_opera.html">Opera</a></p>
+				<p><a href="debug_ie.html">Internet Explorer</a></p>			
+			
+			</div>			
+		</div>
+		<div id="footer_blank"></div>
+	</div>	
+	<div id="footer">		
+		<div id="bottom_menu">
+			<ul>
+				<li><a href="sitemap.html">Карта сайта</a></li>
+				<li><a href="author.html">Об авторе</a></li>
+				<li><a href="contacts.html">Контакты</a></li>
+			</ul>
+		</div>
+		<div id="copyrigth">
+			© copyright 2012
+		</div>
+	</div>
+
+</body>
+</html>
