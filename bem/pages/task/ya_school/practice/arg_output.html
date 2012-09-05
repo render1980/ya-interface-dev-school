@@ -1,0 +1,213 @@
+<!doctype html>
+<html class="b-page">
+<head>
+	<meta charset="UTF-8">
+	<title>Вывод аргументов (Задание #5)</title>
+	<link rel="stylesheet" type="text/css" href="../../../index/index.css">	
+	<script type="text/javascript" src="../../../all/all.js"></script> 
+</head>
+<body class="b-page">	
+	<div class="b-wrapper">
+		<div class="b-header">
+			<div class="b-header__logo">
+				<h1>YA_DEV</h1>
+			</div>
+		</div>
+
+		<div class="b-nav">
+			<ul class="b-top_menu">
+				<li  class="b-top_menu__item ">
+					<a href="../../../index/index.html" class="b-top_menu__item_color_white b-top_menu__item_decoration_none">Главная</a>
+				</li>
+				<li  class="b-top_menu__item">
+					<a href="../../../task/task.html" class="b-top_menu__item_color_white">Проекты</a>
+				</li>
+				<li  class="b-top_menu__item">
+					<a href="../../../site/site.html" class="b-top_menu__item_color_white b-top_menu__item_decoration_none">О сайте</a>
+				</li>
+				<li class="b-top_menu__item">
+					<a href="../../../author/author.html" class="b-top_menu__item_color_white b-top_menu__item_decoration_none">Об авторе</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="b-main">
+			<div class="b-main__article">
+				<h3>Вывод аргументов</h3>
+				<p id="task"><b>Задание:</b> Дана программа, реализованная одновременно на Bash, Python и Perl. Программа принимает произвольное количество аргументов и печатает их количество. Нужно добавить опцию -v для verbose-режима, в котором дополнительно выводится значение каждого из аргументов.</p>
+				<p>Bash:</p>
+				<div class="b-code">
+					<pre>
+#!/usr/bin/env bash
+
+usage() {
+cat << EOF
+Usage: printargs.sh [OPTIONS] [ARGUMENTS]
+  Print the number of arguments.
+
+OPTIONS:
+  -h      print help message
+  -m MSG  custom message
+  -v      verbose mode
+
+Examples:
+  printargs.sh a b c
+  printargs.sh -m 'Arguments count: ' a b c
+  printargs.sh -h
+  printargs.sh -v a b c
+
+EOF
+}
+
+while getopts "hmv:" OPTION # TODO: add '-v' option for verbose mode
+do
+    case $OPTION in
+        h)
+            usage
+            exit 1
+            shift;;
+        m)
+            MESSAGE=$OPTARG
+            shift;shift;;
+	v) 
+	    VERBOSE=1
+            #echo $VERBOSE
+	    shift;;
+	    
+    esac
+done
+
+COUNT=0
+
+for ARG in $@; do
+    # TODO: add '-v' option for verbose mode
+    # and print each argument
+    if [ $VERBOSE > 0 ];
+    then
+    	echo $ARG
+    fi
+
+    let COUNT+=1
+done
+
+if [[ "$MESSAGE" != "" ]]; then
+    echo $MESSAGE
+fi
+
+echo $COUNT
+					</pre>
+				</div>
+			
+			<p>Perl:</p>
+			<div class="b-code">
+			<pre>
+#!/usr/bin/env perl
+
+use strict;
+use Getopt::Long;
+use Pod::Usage;
+
+my $help;
+my $message = '';
+my $verbose;
+
+@ARGV and GetOptions(
+    "h" => \$help,
+    "m:s" => \$message,
+    # TODO: add '-v' option for verbose mode
+	"v" => \$verbose
+) or pod2usage(1);
+pod2usage(-verbose => 2, -exitval => 2) if $help;
+
+my $count = 0;
+
+foreach(@ARGV) {
+    # TODO: add '-v' option for verbose mode
+    # and print each argument
+    if($verbose > 0){
+	print "$_\n";
+	}
+	
+	$count++;
+}
+if($message ne "") {
+    print($message . "\n");
+}
+
+print($count . "\n");
+
+__END__
+
+=head1 NAME
+
+    printargs.pl - Print the number of arguments.
+
+=head1 SYNOPSIS
+
+    printargs.pl [options] [arguments]
+
+=head1 OPTIONS
+
+    -h      Show help message.
+
+    -m MSG  Specify a custom message.
+	
+    -v      Verbose mode
+
+=head1 EXAMPLE
+
+    printargs.sh a b c
+
+    printargs.sh -m 'Arguments count: ' a b c
+
+    printargs.sh -h
+	
+	printargs.sh -v a b c
+
+			</pre>
+			</div>
+		
+		<p>Python:</p>
+		<div class="b-code">
+			<pre>
+#!/usr/bin/env python
+
+import argparse
+
+parser = argparse.ArgumentParser(description='Print the number of arguments.')
+parser.add_argument('arguments', metavar='ARG', type=str, nargs='*', help='some arguments')
+parser.add_argument('-m', dest='message', default='', help='custom message')
+# TODO: add '-v' option for verbose mode
+parser.add_argument('-v', dest='verbose', action='count', default=0)
+
+args = parser.parse_args()
+
+count = 0
+
+for a in args.arguments:
+    # TODO: add '-v' option for verbose mode
+    # and print each argument
+	if(args.verbose > 0):
+		print(a)
+	count += 1
+
+if args.message != '':
+    print(args.message)
+
+print(count)
+			</pre>
+		</div>
+			</div>		
+		</div>
+		<div class="b-wrapper__blank"></div>
+
+	</div>
+	<div class="b-footer">
+		<ul class="b-bottom_menu">
+			<li class="b-bottom_menu__item"><a href="../../../site/sitemap.html">Карта сайта</a></li>
+			<li class="b-bottom_menu__item"><a href="../../../author/author.html">Об авторе</a></li>
+			<li class="b-bottom_menu__item"><a href="../../../author/contacts.html">Контакты</a></li>
+		</ul>
+	</div>
+</body>
+</html>

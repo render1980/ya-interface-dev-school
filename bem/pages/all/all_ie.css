@@ -1,0 +1,16 @@
+.b-wrapper
+{
+	height: 100%;
+}
+
+.b-tree_float_left
+{
+	float: none;
+	display: inline;	
+}
+
+.b-top_menu__item
+{
+	float: none;
+	display: inline;
+}
