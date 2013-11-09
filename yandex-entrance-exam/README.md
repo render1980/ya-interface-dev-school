@@ -1,8 +1,4 @@
 ya-interface-dev-school
 =======================
 
-Репозиторий с сайтами, которые были сверстаны в качестве задания для Школы Разработки Интерфейсов Yandex.
-
-В директории old-school - сайт в стиле 'старой школы' с интерактивом (jquery).
-
-В директории bem - сайт, сверстанный по bem-методологии. Интерактива нет для того, чтобы использовать как версию для печати.
+Repository with old-school-style site which has been made as a task for Yandex Interface Development School 2012.
