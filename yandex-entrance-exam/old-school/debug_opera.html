@@ -1,0 +1,76 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Использование инструментов отладки в Opera</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.dropdownPlain.js"></script>
+	<script type="text/javascript">
+		if(navigator.userAgent.indexOf("MSIE 9.0") > 0){
+			document.write("<link rel='stylesheet' href='css/ie_style.css'>");
+		}
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				<a href="index.html"><h1>YA_DEV</h1></a>
+			</div>	
+		</div>
+
+		<div id="nav">
+			<ul id="top_menu">
+				<li><a href="index.html"><div class="menu_elem">Главная</div></a></li>
+				<li>
+					<a href=""><div class="menu_elem">Проекты<div class="arrow"></div></div></a>
+					<ul>
+						<li>
+							<a href="ya_school.html">Школа интерфейсов Яндекс</a>
+						</li>							
+					</ul>
+				</li>
+				<li><a href=""><div class="menu_elem">О сайте<div class="arrow"></div></div></a>
+					<ul>
+						<li><a href="common_info.html">Общая информация</a></li>
+						<li><a href="sitemap.html">Карта сайта</a></li>
+					</ul>
+				</li>
+				<li><div id="last"><a href="author.html"><div class="menu_elem">Об авторе<div class="arrow"></div></div></a></div>
+					<ul>
+						<li><a href="resume.html">Резюме</a></li>
+						<li><a href="contacts.html">Контакты</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div id="main">
+			<div class="article">				
+				<h2>Использование инструментов отладки в Opera</h2>
+				<p>Для этих целей в Opera есть встроенный плагин DragonFly.</p>
+
+				<p>Консоль обрела новый вид с белым текстом на темном фоне:</p>
+				<p><image src="img/debug/console_opera.png"></p>
+				<p>Можно просматривать HTML-код страницы  при помощи вкладки Документы (Documents), отлаживать скрипт на вкладке Скрипты (Scripts), оптимизировать время загрузки страницы при помощи инструментов на вкладках Сеть и Profiler. </p>
+				<p>Cтоит также упомянуть про возможность удаленной отладки на вкладке Скрипты, которая, кстати, первой появилась в DragonFly. Для этого надо воспользоваться кнопкой "Настройка удаленной отладки" и следовать дальнейшим инструкциям. Полезна для разработчиков мобильных устройств. Эта функция удаленной отладки позволяет подключиться к браузеру Opera устройства и выполнять отладку с ПК или Mac.</p>
+				<p><image src="img/debug/remote_debug_opera.png"></p>			
+			</div>		
+		</div>
+		<div id="footer_blank"></div>
+	</div>
+	<div id="footer">
+		<div id="bottom_menu">
+			<ul>
+				<li><a href="sitemap.html">Карта сайта</a></li>
+				<li><a href="author.html">Об авторе</a></li>
+				<li><a href="contacts.html">Контакты</a></li>
+			</ul>
+		</div>
+		<div id="copyrigth">
+			© copyright 2012
+		</div>
+	</div>
+</body>
+</html>

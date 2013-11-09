@@ -1,0 +1,7 @@
+block b-menu-horiz {
+	
+	elem item {
+		tag: 'a',
+		mix: { elemMods: { underline: 'true' } }
+	}
+}

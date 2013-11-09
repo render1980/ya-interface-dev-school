@@ -1,0 +1,21 @@
+{
+  "author": "render1980",
+  "name": "yandex-shri-bem",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/render1980/yandex-shri-bem.git"
+  },
+  "engines": {
+    "node": "0.6 | 0.7 | 0.8 | 0.9"
+  },
+  "dependencies": {
+    "bem": "~0.5.14",
+    "ometajs": "~3.1.4",
+    "xjst": "~0.3.1",
+    "dom-js": "*"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "private": true
+}

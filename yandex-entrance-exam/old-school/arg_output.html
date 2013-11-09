@@ -1,0 +1,239 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Вывод аргументов</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">	 
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.dropdownPlain.js"></script>
+	<script type="text/javascript">
+		if(navigator.userAgent.indexOf("MSIE 9.0") > 0){
+			document.write("<link rel='stylesheet' href='css/ie_style.css'>");
+		}
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				<a href="index.html"><h1>YA_DEV</h1></a>
+			</div>
+		</div>
+
+		<div id="nav">
+			<ul id="top_menu">
+				<li><a href="index.html"><div class="menu_elem">Главная</div></a></li>
+				<li>
+					<a href=""><div class="menu_elem">Проекты<div class="arrow"></div></div>
+					</a>
+					<ul>
+						<li>
+							<a href="ya_school.html">Школа интерфейсов Яндекс</a>
+						</li>							
+					</ul>
+				</li>
+				<li>
+					<a href=""><div class="menu_elem">О сайте<div class="arrow"></div></div></a>
+						<ul>
+							<li><a href="common_info.html">Общая информация</a></li>
+							<li><a href="sitemap.html">Карта сайта</a></li>
+						</ul>
+				</li>
+				<li>
+					<div id="last">
+						<a href="author.html"><div class="menu_elem">Об авторе<div class="arrow"></div></div></a>
+					</div>
+					<ul>
+						<li><a href="resume.html">Резюме</a></li>
+						<li><a href="contacts.html">Контакты</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div id="main">
+			<div class="article">
+				<h2>Вывод аргументов</h2>
+				<p id="task"><b>Задание:</b> Дана программа, реализованная одновременно на Bash, Python и Perl. Программа принимает произвольное количество аргументов и печатает их количество. Нужно добавить опцию -v для verbose-режима, в котором дополнительно выводится значение каждого из аргументов.</p>
+				<p>Bash:</p>
+				<div class="code">
+					<pre>
+#!/usr/bin/env bash
+
+usage() {
+cat << EOF
+Usage: printargs.sh [OPTIONS] [ARGUMENTS]
+  Print the number of arguments.
+
+OPTIONS:
+  -h      print help message
+  -m MSG  custom message
+  -v      verbose mode
+
+Examples:
+  printargs.sh a b c
+  printargs.sh -m 'Arguments count: ' a b c
+  printargs.sh -h
+  printargs.sh -v a b c
+
+EOF
+}
+
+while getopts "hmv:" OPTION # TODO: add '-v' option for verbose mode
+do
+    case $OPTION in
+        h)
+            usage
+            exit 1
+            shift;;
+        m)
+            MESSAGE=$OPTARG
+            shift;shift;;
+	v) 
+	    VERBOSE=1
+            #echo $VERBOSE
+	    shift;;
+	    
+    esac
+done
+
+COUNT=0
+
+for ARG in $@; do
+    # TODO: add '-v' option for verbose mode
+    # and print each argument
+    if [ $VERBOSE > 0 ];
+    then
+    	echo $ARG
+    fi
+
+    let COUNT+=1
+done
+
+if [[ "$MESSAGE" != "" ]]; then
+    echo $MESSAGE
+fi
+
+echo $COUNT
+					</pre>
+				</div>
+			
+			<p>Perl:</p>
+			<div class="code">
+			<pre>
+#!/usr/bin/env perl
+
+use strict;
+use Getopt::Long;
+use Pod::Usage;
+
+my $help;
+my $message = '';
+my $verbose;
+
+@ARGV and GetOptions(
+    "h" => \$help,
+    "m:s" => \$message,
+    # TODO: add '-v' option for verbose mode
+	"v" => \$verbose
+) or pod2usage(1);
+pod2usage(-verbose => 2, -exitval => 2) if $help;
+
+my $count = 0;
+
+foreach(@ARGV) {
+    # TODO: add '-v' option for verbose mode
+    # and print each argument
+    if($verbose > 0){
+	print "$_\n";
+	}
+	
+	$count++;
+}
+if($message ne "") {
+    print($message . "\n");
+}
+
+print($count . "\n");
+
+__END__
+
+=head1 NAME
+
+    printargs.pl - Print the number of arguments.
+
+=head1 SYNOPSIS
+
+    printargs.pl [options] [arguments]
+
+=head1 OPTIONS
+
+    -h      Show help message.
+
+    -m MSG  Specify a custom message.
+	
+    -v      Verbose mode
+
+=head1 EXAMPLE
+
+    printargs.sh a b c
+
+    printargs.sh -m 'Arguments count: ' a b c
+
+    printargs.sh -h
+	
+	printargs.sh -v a b c
+
+			</pre>
+			</div>
+		
+		<p>Python:</p>
+		<div class="code">
+			<pre>
+#!/usr/bin/env python
+
+import argparse
+
+parser = argparse.ArgumentParser(description='Print the number of arguments.')
+parser.add_argument('arguments', metavar='ARG', type=str, nargs='*', help='some arguments')
+parser.add_argument('-m', dest='message', default='', help='custom message')
+# TODO: add '-v' option for verbose mode
+parser.add_argument('-v', dest='verbose', action='count', default=0)
+
+args = parser.parse_args()
+
+count = 0
+
+for a in args.arguments:
+    # TODO: add '-v' option for verbose mode
+    # and print each argument
+	if(args.verbose > 0):
+		print(a)
+	count += 1
+
+if args.message != '':
+    print(args.message)
+
+print(count)
+			</pre>
+		</div>
+		
+		</div>
+		<div id="footer_blank"></div>		
+
+	</div>
+	<div id="footer">			
+		<div id="bottom_menu">
+			<ul>
+				<li><a href="sitemap.html">Карта сайта</a></li>
+				<li><a href="author.html">Об авторе</a></li>
+				<li><a href="contacts.html">Контакты</a></li>
+			</ul>
+		</div>
+		<div id="copyrigth">
+			© copyright 2012
+		</div>
+	</div>
+	
+</body>
+</html>

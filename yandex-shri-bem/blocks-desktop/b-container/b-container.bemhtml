@@ -1,0 +1,63 @@
+block b-container {
+
+    content: [
+        {
+            block: 'b-header',
+            content: [
+                { 
+                    block: 'b-logo',
+                    content: [
+                       'YANDEX-SHRI-BEM'
+                    ]
+                }        
+            ]
+        },
+
+        {
+            block: 'b-wrapper',
+            content: [
+                {
+                    block: 'b-nav',
+                    content: [
+                        {
+                            block: 'b-menu-horiz',
+                            mods: { layout: 'normal'},
+                            content: [
+                                { elem: 'item', elemMods: {color: 'white' }, content: [ 'Главная' ], attrs: { href: '../index/index.html'} },
+                                { elem: 'item', elemMods: {color: 'white'}, content: [ 'Проекты' ], attrs: { href: '../projects/projects.html' } },
+                                { elem: 'item', elemMods: {color: 'white'}, content: [ 'О сайте' ], attrs: { href: '../site/site.html' } },
+                                { elem: 'item', elemMods: {color: 'white'}, content: [ 'Об авторе' ], attrs: { href: '../author/author.html' } }
+                            ]
+                        }
+                    ]
+                },
+
+                {
+                    block: 'b-main',
+                    content: [
+                        { elem: 'article', content: this.ctx.article }
+                    ]
+                },
+
+                { 
+                    elem: 'blank', attrs: { name: 'blank', value: '' } 
+                }
+
+            ]
+        },        
+
+        {
+            block: 'b-footer',
+            content: [
+                {
+                    block: 'b-menu-horiz',
+                    mods: { layout: 'normal' },
+                    content: [
+                        { elem: 'item', content: [ 'Карта сайта' ], attrs: { href: '../sitemap/sitemap.html' } },
+                        { elem: 'item', content: [ 'Об авторе' ], attrs: { href: '../author/author.html' } },
+                        { elem: 'item', content: [ 'Контакты' ], attrs: { href: '../contacts/contacts.html' } }
+                    ]
+                }
+            ]
+        }
+]}

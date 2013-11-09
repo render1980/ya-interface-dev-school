@@ -1,0 +1,193 @@
+<!doctype html>
+<html class="b-page">
+<head>
+	<meta charset="UTF-8">
+	<title>Автосалон (Задача #3)</title>
+	<link rel="stylesheet" type="text/css" href="../../../index/index.css">
+	<script type="text/javascript" src="../../../all/all.js"></script>	 
+</head>
+<body class="b-page">	
+	<div class="b-wrapper">
+		<div class="b-header">
+			<div class="b-header__logo">
+				<h1>YA_DEV</h1>
+			</div>
+		</div>
+
+		<div class="b-nav">
+			<ul class="b-top_menu">
+				<li  class="b-top_menu__item ">
+					<a href="../../../index/index.html" class="b-top_menu__item_color_white b-top_menu__item_decoration_none">Главная</a>
+				</li>
+				<li  class="b-top_menu__item">
+					<a href="../../../task/task.html" class="b-top_menu__item_color_white">Проекты</a>
+				</li>
+				<li  class="b-top_menu__item">
+					<a href="../../../site/site.html" class="b-top_menu__item_color_white b-top_menu__item_decoration_none">О сайте</a>
+				</li>
+				<li class="b-top_menu__item">
+					<a href="../../../author/author.html" class="b-top_menu__item_color_white b-top_menu__item_decoration_none">Об авторе</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="b-main">
+			<div class="b-main__article">
+				<h3>Автосалон</h3>
+				<p id="task"><b>Задание:</b> Предположим, что мы представляем автосалон по продаже японских и немецких автомобилей. У нас есть базовые классы и примеры их использования. Допишите недостающий код.</p>
+				<p>
+				<div class="b-code">
+					<pre>
+var euroToRubleRate = 39.2846;
+var yenToRubleRate = 40.3588;
+
+//авто
+function Car(manufacturer, model, year) {
+    this.manufacturer = manufacturer;
+    this.model = model;
+    this.year = year == null ? new Date().getFullYear() : year;
+
+    //вывод информации об авто
+    this.getInfo = function(){
+        return this.manufacturer + " " + this.model + " " + this.year;
+    }
+	
+    //вывод детализированной информации об авто
+    this.getDetailedInfo = function(){
+	return "Производитель: " + this.manufacturer + ". Модель: "
+		+ this.model + ". Год: " + this.year;		
+    }
+	
+    //определить страну по марке авто
+    this.getCountry = function() {
+	    switch (this.manufacturer.toLowerCase()) {
+		    case 'bmw':
+		    case 'audi':
+			    return 'Germany';
+		    case 'toyota':
+			    return 'Japan';
+	    }
+    }
+}
+
+//автосалон
+function CarDealer(name) {
+    this.name = name;
+    this.cars = [];
+    this.cars_prices = {};
+	
+    //добавление авто в автосалон
+    this.add = function(){
+        for(var i = 0; i < arguments.length; i++)
+            this.cars.push(arguments[i]);
+    }
+	
+    //вывод данных о всех авто автосалона
+    this.list = function(){		
+        return this.carsSort();
+    }
+	
+    this.carsSort = function(){
+        //массив авто
+        var cars = [];
+	
+        for(var i = 0; i < this.cars.length; i++){
+            cars[i] = this.cars[i].getInfo();		
+        }
+	
+        var sorted_cars = cars.sort();
+        var result = "";
+        for(var i = 0; i < sorted_cars.length; i++){
+            result += sorted_cars[i] + (i == sorted_cars.length - 1 
+			? '' : ", ");		
+        }
+        return result;
+    }
+	
+    //вывод списка автомобилей в продаже с фильтрацией 
+    //по стране-производителю
+    this.listByCountry = function(country){
+        var result = "";
+        for(var i = 0; i < this.cars.length; i++){
+            if(this.cars[i].getCountry() == country)
+                result += this.cars[i].getInfo() +
+                    (i == this.cars[i].length - 1 ? '' : ", ");
+        }
+        result = result.substr(0, result.length - 2);
+        return result;
+    }
+	
+    //установить цену для автомобиля
+    this.setPrice = function(car, price){
+        this.cars_prices[car] = price;		
+    }
+	
+    //вывод списка автомобилей с ценой в рублях
+    this.getCarsListWithPrice = function(){
+        var result = "";
+        var carInfo = "";
+        for(var i = 0; i < this.cars.length; i++){
+            carInfo = this.cars[i].getInfo();
+            result += carInfo + " цена: "
+                + getPriceInRUR(this.cars_prices[carInfo]) + 
+                (i == this.cars.length - 1 ? '' : ", ");
+        }
+        return result;
+    }	
+}
+
+function getPriceInRUR(price){
+    var currency = price.substr(0, 1);
+    var priceValue = price.substr(1, price.length - 1);
+    var priceValueRUR = 0.00;
+    switch (currency) {
+        case '€':
+            priceValueRUR += priceValue * euroToRubleRate;
+        case '¥':
+            priceValueRUR += priceValue * yenToRubleRate / 100;
+    }
+    return priceValueRUR.toFixed(4) + ' рублей';
+}
+
+//инициализация
+var bmw = new Car("BMW", "X5", 2010),
+    audi = new Car("Audi", "Q5", 2012),
+    toyota = new Car("Toyota", "Camry", 2012);
+
+var yandex = new CarDealer('Яндекс.Авто');
+yandex.add(toyota);
+yandex.add(bmw, audi);
+
+yandex.setPrice('BMW X5 2010', '€2000');
+yandex.setPrice('Audi Q5 2012', '€3000');
+yandex.setPrice('Toyota Camry 2012', '¥300000');
+
+//console.log
+console.log(bmw.getInfo());
+console.log(bmw.getDetailedInfo());
+console.log(yandex.list());
+console.log(yandex.listByCountry('Germany'));
+console.log(yandex.getCarsListWithPrice());
+					</pre>
+				</div>
+				</p>
+			<p><b>Примечание:</b> в скрипте для генерации списка автомобилей с ценой в рублях используются фиксированные значения переменных euroToRubleRate и yenToRubleRate. Для возможности формирования данных с текущим курсом рубля можно предложить следующее:</p>
+			<ol>
+				<li>Использовать серверный скрипт для получения html - кода страницы с текущим курсом рубля, последующим парсингом и подстановкой значений в результирующий js-файл. Пример такого скрипта <a href="autoshow_alt.html">здесь</a></li>
+				<li>Использовать сервис, который будет возвращать текущий курс рубля. </li>
+			</ol>
+				
+			</div>
+		</div>
+		<div class="b-wrapper__blank"></div>
+
+	</div>
+	<div class="b-footer">
+		<ul class="b-bottom_menu">
+			<li class="b-bottom_menu__item"><a href="../../../site/sitemap.html">Карта сайта</a></li>
+			<li class="b-bottom_menu__item"><a href="../../../author/author.html">Об авторе</a></li>
+			<li class="b-bottom_menu__item"><a href="../../../author/contacts.html">Контакты</a></li>
+		</ul>
+	</div>
+</body>
+</html>
