@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>События</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="styles/main.css">
+<script type="text/javascript" src="scripts/jquery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/resources/demos/external/jquery.bgiframe-2.1.2.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script type="text/javascript" src="scripts/template/handlebars-1.0.rc.1.js"></script>
+<script type="text/javascript" src="scripts/events.js"></script>
+</head>
+<body>
+	<div class="b-color-layout"></div>
+	<div class="b-container">
+		<div class="b-header">
+			<div class="b-logo">
+				<h1>Программа лекций ШРИ</h1>
+			</div>
+		</div>
+		<div class="b-wrapper">
+			<div class="b-main">
+				<div class="b-nav">
+					<ul class="b-menu-horiz">
+						<li class="b-menu-horiz__item"><a href="index.html">Главная</a></li>
+						<li class="b-menu-horiz__item"><a href="calendar.html">Календарь</a></li>
+						<li class="b-menu-horiz__item b-menu-horiz__item_current"><a href="events.html">События</a></li>
+					</ul>
+				</div>
+				
+				<div class="b-main__article"></div>
+				<script class="b-main__template" type="text/x-handlebars-template">
+				  {{#each lections}}
+				  <div class="b-event">
+				    <div class="b-event-header">
+				    	<h2 class="b-event-header__title">{{title}}</h2>
+				    	<p class="b-event-header__date">{{start}}</p>
+				    	<p class="b-event-header__reporter">докладчик: {{reporter}}</p>
+				    </div>
+				    <div class="b-content">
+				    	<p><b>Тезисы</b></p>
+				    	{{thesis}}
+				    	<br/><br/>
+				    	<p>
+				    		Ссылка на презентацию: <a href="{{present}}"> {{present}}</a>
+				    	</p>				    	
+				    </div>
+				  </div>
+				  {{/each}}
+				</script>
+
+			</div>
+		</div>
+		<div class="b-footer">
+			© 2012 render1980
+		</div>
+	</div>	
+</body>
+</html>
